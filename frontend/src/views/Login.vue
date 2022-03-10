@@ -48,33 +48,37 @@ const login = async () => {
     <div class="container" aria-label="Login Form">
       <h1>Log in</h1>
       <form ref="form" @submit.prevent="login">
-        <div class="form-content">
           <div class="form-row">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              v-model="credentials.username"
-            />
+            <div class="input-wrapper">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                v-model="credentials.username"
+                required
+              />
+              <label for="username">Username</label>
+            </div>
           </div>
           <div class="form-row">
-            <label for="pass">Password</label>
-            <input
-              type="password"
-              name="pass"
-              id="pass"
-              v-model="credentials.password"
-            />
+            <div class="input-wrapper">
+              <input
+                type="password"
+                name="pass"
+                id="pass"
+                v-model="credentials.password"
+                required
+              />
+              <label for="pass">Password</label>
+            </div>
           </div>
-          <p class="error" v-if="error">{{ error }}</p>
           <div class="form-row button">
+          <p class="error" v-if="error">{{ error }}</p>
             <button :disabled="loading">
               <Preloader v-if="loading">Loading...</Preloader>
               <span v-else>Log in</span>
             </button>
           </div>
-        </div>
       </form>
       <MorphSvg />
     </div>
@@ -102,13 +106,13 @@ h1 {
   font-family: var(--font-secondary);
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(1.1rem, 4vw, 1.8rem);
+  font-size: clamp(1.6rem, 4vw, 1.8rem);
 }
 
-.form-content {
+form {
   display: grid;
-  margin-top: 20px;
-  gap: 20px;
+  margin-top: 40px;
+  gap: 40px;
 }
 
 .form-row {
@@ -116,25 +120,49 @@ h1 {
   flex-direction: column;
 }
 
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper:focus-within label {
+  transform: translateY(-40px) translateX(-10px);
+  color: var(--clr-primary);
+}
+
 .error {
   color: var(--clr-danger);
   font-size: 0.8rem;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 label {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-bottom: 10px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-primary-shadow);
+  pointer-events: none;
+  transition: .3s;
 }
 
 input {
   padding: 6px;
+  width: 100%;
   outline: none;
   background: var(--clr-secondary);
   border-radius: 5px;
   color: var(--clr-primary);
   border: none;
   transition: box-shadow 0.3s;
+}
+
+input:valid ~ label {
+  transform: translateY(-40px) translateX(-10px);
+  color: var(--clr-primary);
 }
 
 input:focus-visible {
@@ -151,6 +179,11 @@ button {
   border: none;
   transition: 0.3s;
   font-family: inherit;
+  outline: none;
+}
+
+button:focus-visible {
+  transform: scale(1.07)
 }
 
 button:active {
