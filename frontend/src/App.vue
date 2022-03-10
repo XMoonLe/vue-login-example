@@ -16,8 +16,8 @@
   --clr-secondary: #28536b;
   --clr-primary-shadow: #94a0a8;
   --clr-danger: #d0544e;
-  --font-primary: 'Inter';
-  --font-secondary: 'Raleway';
+  --font-primary: 'Inter', sans-serif;
+  --font-secondary: 'Raleway', sans-serif;
 }
 
 * {
@@ -30,7 +30,6 @@ body,
 html {
   background: var(--background);
   color: var(--clr-primary);
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   height: 100vh;
   font-family: var(--font-primary);
 }
