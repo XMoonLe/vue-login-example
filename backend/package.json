@@ -1,0 +1,22 @@
+{
+  "name": "login-backend",
+  "version": "0.1.0",
+  "description": "Login backend from Fiverr order",
+  "main": "index.js",
+  "author": "XMoonLe",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0",
+    "prettier": "^2.5.1"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "format": "prettier . --write"
+  }
+}
