@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useUserStore = defineStore('user', () => {
+const useUserStore = defineStore('user', () => {
   const state = ref({
     username: '',
     email: '',
@@ -12,8 +12,6 @@ export const useUserStore = defineStore('user', () => {
     state.value.username = username
     state.value.email = email
     state.value.authenticated = authenticated
-
-    console.log(state.value)
   }
 
   return {
@@ -21,3 +19,5 @@ export const useUserStore = defineStore('user', () => {
     setUser,
   }
 })
+
+export default useUserStore

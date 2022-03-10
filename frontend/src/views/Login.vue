@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from '../lib/axios'
-import { useUserStore } from '../store/user'
+import useUserStore from '../store/user'
 import { useRouter } from 'vue-router'
 // components
 import Preloader from '../components/Preloader.vue'
