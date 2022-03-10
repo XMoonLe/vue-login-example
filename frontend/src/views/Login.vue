@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import axios from '../lib/axios'
 import useUserStore from '../store/user'
 import { useRouter } from 'vue-router'
@@ -14,7 +14,6 @@ const credentials = ref({
 })
 const error = ref('')
 const loading = ref(false)
-const form = ref(null)
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -27,10 +26,10 @@ const login = async () => {
   try {
     const { data } = await axios.post('/auth/login', credentials.value)
     userStore.setUser({ ...data, authenticated: true })
-    form.value.reset()
     router.replace({ name: 'Home' })
+    credentials.value = {}
   } catch (err) {
-    console.log(err)
+    console.error(err)
     const message = err?.response?.data?.message
     !message
       ? (error.value = 'Something went really bad')
@@ -45,7 +44,7 @@ const login = async () => {
   <main class="login-body">
     <div class="container" aria-label="Login Form">
       <h1>Log in</h1>
-      <form ref="form" @submit.prevent="login">
+      <form @submit.prevent="login">
         <div class="form-row">
           <div class="input-wrapper">
             <input
@@ -55,7 +54,7 @@ const login = async () => {
               v-model="credentials.username"
               required
             />
-            <label for="username">Username</label>
+            <label for="username" aria-hidden="true">Username</label>
           </div>
         </div>
         <div class="form-row">
@@ -67,13 +66,13 @@ const login = async () => {
               v-model="credentials.password"
               required
             />
-            <label for="pass">Password</label>
+            <label for="pass" aria-hidden="true">Password</label>
           </div>
         </div>
         <div class="form-row button">
           <p class="error" v-if="error">{{ error }}</p>
           <button :disabled="loading">
-            <Preloader v-if="loading">Loading...</Preloader>
+            <Preloader v-if="loading" />
             <span v-else>Log in</span>
           </button>
         </div>
