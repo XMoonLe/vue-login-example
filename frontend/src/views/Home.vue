@@ -1,6 +1,18 @@
 <script setup>
+  import { onMounted } from 'vue'
+  import confetti from 'canvas-confetti'
   import useUserStore from '../store/user'
+
   const userStore = useUserStore()
+
+  onMounted(() => {
+    confetti({
+      particleCount: 100,
+      startVelocity: 30,
+      spread: 360,
+      disableForReducedMotion: true
+    })
+  })
 
 </script>
 
