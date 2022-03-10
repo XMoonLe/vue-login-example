@@ -12,6 +12,7 @@
   --background-darken: #162e3b;
   --clr-primary: #ccdee8;
   --clr-secondary: #28536b;
+  --clr-primary-shadow: #94a0a8;
   --clr-danger: #d0544e;
   --font-primary: 'Inter';
   --font-secondary: 'Raleway';

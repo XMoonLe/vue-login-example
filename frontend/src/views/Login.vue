@@ -3,7 +3,11 @@ import { ref, onMounted } from 'vue'
 import axios from '../lib/axios'
 import { useUserStore } from '../store/user'
 import { useRouter } from 'vue-router'
+// components
+import Preloader from '../components/Preloader.vue'
+import MorphSvg from '../components/MorphSvg.vue'
 
+// necessary variables
 const credentials = ref({
   username: '',
   email: '',
@@ -15,6 +19,7 @@ const form = ref(null)
 const router = useRouter()
 const store = useUserStore()
 
+// submit data
 const login = async () => {
   error.value ? (error.value = '') : null
   loading.value = true
@@ -23,7 +28,7 @@ const login = async () => {
     const { data } = await axios.post('/auth/login', credentials.value)
     store.setUser({ ...data, authenticated: true })
     form.value.reset()
-    router.replace('/')
+    router.replace({ name: 'Home' })
   } catch (err) {
     console.log(err)
 
@@ -64,13 +69,14 @@ const login = async () => {
           </div>
           <p class="error" v-if="error">{{ error }}</p>
           <div class="form-row button">
-            <button>
-              <span v-if="loading">Loading...</span>
+            <button :disabled="loading">
+              <Preloader v-if="loading">Loading...</Preloader>
               <span v-else>Log in</span>
             </button>
           </div>
         </div>
       </form>
+      <MorphSvg />
     </div>
   </main>
 </template>
@@ -84,10 +90,11 @@ const login = async () => {
 }
 
 .container {
-  background: var(--background-darken);
   padding: 20px;
   border-radius: 12px;
   width: 250px;
+  position: relative;
+  z-index: 10;
 }
 
 h1 {
@@ -147,6 +154,11 @@ button {
 }
 
 button:active {
-  transform: scale(0.90);
+  transform: scale(0.9);
+}
+
+button:disabled {
+  background: var(--clr-primary-shadow);
+  cursor: initial;
 }
 </style>
