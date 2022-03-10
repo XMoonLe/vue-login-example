@@ -17,7 +17,7 @@ const loading = ref(false)
 const form = ref(null)
 
 const router = useRouter()
-const store = useUserStore()
+const userStore = useUserStore()
 
 // submit data
 const login = async () => {
@@ -26,14 +26,12 @@ const login = async () => {
 
   try {
     const { data } = await axios.post('/auth/login', credentials.value)
-    store.setUser({ ...data, authenticated: true })
+    userStore.setUser({ ...data, authenticated: true })
     form.value.reset()
     router.replace({ name: 'Home' })
   } catch (err) {
     console.log(err)
-
     const message = err?.response?.data?.message
-
     !message
       ? (error.value = 'Something went really bad')
       : (error.value = message)
@@ -48,37 +46,37 @@ const login = async () => {
     <div class="container" aria-label="Login Form">
       <h1>Log in</h1>
       <form ref="form" @submit.prevent="login">
-          <div class="form-row">
-            <div class="input-wrapper">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                v-model="credentials.username"
-                required
-              />
-              <label for="username">Username</label>
-            </div>
+        <div class="form-row">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              v-model="credentials.username"
+              required
+            />
+            <label for="username">Username</label>
           </div>
-          <div class="form-row">
-            <div class="input-wrapper">
-              <input
-                type="password"
-                name="pass"
-                id="pass"
-                v-model="credentials.password"
-                required
-              />
-              <label for="pass">Password</label>
-            </div>
+        </div>
+        <div class="form-row">
+          <div class="input-wrapper">
+            <input
+              type="password"
+              name="pass"
+              id="pass"
+              v-model="credentials.password"
+              required
+            />
+            <label for="pass">Password</label>
           </div>
-          <div class="form-row button">
+        </div>
+        <div class="form-row button">
           <p class="error" v-if="error">{{ error }}</p>
-            <button :disabled="loading">
-              <Preloader v-if="loading">Loading...</Preloader>
-              <span v-else>Log in</span>
-            </button>
-          </div>
+          <button :disabled="loading">
+            <Preloader v-if="loading">Loading...</Preloader>
+            <span v-else>Log in</span>
+          </button>
+        </div>
       </form>
       <MorphSvg />
     </div>
@@ -146,7 +144,7 @@ label {
   transform: translateY(-50%);
   color: var(--clr-primary-shadow);
   pointer-events: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 input {
@@ -183,7 +181,7 @@ button {
 }
 
 button:focus-visible {
-  transform: scale(1.07)
+  transform: scale(1.07);
 }
 
 button:active {

@@ -39,11 +39,13 @@ html {
   height: 100%;
 }
 
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .7s ease-in-out;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.7s ease-in-out;
 }
 </style>
