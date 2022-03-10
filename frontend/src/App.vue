@@ -1,7 +1,9 @@
-<script setup></script>
-
 <template>
-  <router-view></router-view>
+  <router-view v-slot="{ Component, route }">
+    <transition name="fade" mode="out-in">
+      <Component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <style>
@@ -35,5 +37,13 @@ html {
 
 #app {
   height: 100%;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .7s ease-in-out;
 }
 </style>
