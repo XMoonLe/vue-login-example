@@ -88,6 +88,7 @@ const login = async () => {
   justify-content: center;
   align-items: center;
   height: 100%;
+  overflow: hidden;
 }
 
 .container {
