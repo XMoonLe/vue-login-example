@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
   const authRequired = to.meta.auth
   const authenticated = userStore.state.authenticated
 
-  // Checking is the user is authenticated
+  // Checking if the user is authenticated
   authRequired && !authenticated
     ? next('/login')
     : !authRequired && authenticated

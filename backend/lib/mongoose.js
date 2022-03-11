@@ -1,7 +1,7 @@
 const { connection, connect } = require('mongoose')
 
 const dbConnection = async () => {
-  const db = await connect(process.env.MONGODB_URL)
+  await connect(process.env.MONGODB_URL)
 }
 
 connection.on('connected', () => console.log('MongoDB connected.'))
